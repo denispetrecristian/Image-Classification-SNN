@@ -13,6 +13,8 @@ class NetParams():
 
 class SimParams():
 
-    def __init__(self,marginRef, marginKer):
+    def __init__(self,marginRef, marginKer, marginRho, timeline):
         self.marginRef = marginRef
         self.marginKer = marginKer
+        self.marginRho = marginRho
+        self.timeline = timeline
