@@ -5,6 +5,7 @@ from netParams import NetParams, SimParams
 import logging
 
 netParams = NetParams(50, 1.2, 1.0, 2, 1)
+netParams.init_weights()
 simParams = SimParams(10, 10, 10, 200)
 
 
@@ -108,3 +109,21 @@ def spike_count_loss_function(spike_in, spike_out):
     interaval = simParams.timeline
     error_count = (spike_in - spike_out) / interaval
     return 1/2 * np.sum(error_count ** 2)
+
+
+def forward(sample, netParams: NetParams, simParams: SimParams):
+    '''
+        Makes a forward pass and returns pikes
+    '''
+    layer1 = spike_function(compute_potential_next_layer(spike_to_PSP(
+        sample, netParams, simParams), netParams.weights1), netParams, simParams)
+    layer2 = spike_function(compute_potential_next_layer(spike_to_PSP(
+        layer1, netParams, simParams), netParams.weights2), netParams, simParams)
+
+    max = 0
+    i = 0
+    for neuron in layer2:
+        if np.sum(neuron) > max:
+            cat = i
+            max = np.sum(neuron)
+        i+=1

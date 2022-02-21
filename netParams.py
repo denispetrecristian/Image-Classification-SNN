@@ -9,6 +9,13 @@ class NetParams():
         self.scaleRef = scaleRef
         self.tauRho = tauRho
         self.scaleRho = scaleRho
+        self.fc1 = 10
+        self.fc2 = 4
+        self.samples = 2
+    
+    def init_weights(self):
+        self.weights1 = np.random.rand(self.fc1, self.fc2)
+        self.weights2 = np.random.rand(self.fc2, self.samples)
 
 
 class SimParams():
